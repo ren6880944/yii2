@@ -22,7 +22,7 @@ class SiteController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['login', 'error'],
+                        'actions' => ['login', 'error','captcha'], //加上captcha开启验证码
                         'allow' => true,
                     ],
                     [
@@ -50,6 +50,13 @@ class SiteController extends Controller
             'error' => [
                 'class' => 'yii\web\ErrorAction',
             ],
+            //验证码
+            'captcha' => [
+                'class' => 'yii\captcha\CaptchaAction',
+                'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
+                'minLength'=>4,
+                'maxLength'=>4,
+            ],
         ];
     }
 
@@ -71,7 +78,8 @@ class SiteController extends Controller
     public function actionLogin()
     {
         if (!Yii::$app->user->isGuest) {
-            return $this->goHome();
+//            return $this->goHome();
+            return $this->redirect(['user/login']);
         }
 
         $model = new LoginForm();
@@ -93,6 +101,7 @@ class SiteController extends Controller
     {
         Yii::$app->user->logout();
 
-        return $this->goHome();
+//        return $this->goHome();
+        return $this->redirect(['user/login']);
     }
 }

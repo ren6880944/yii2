@@ -18,9 +18,11 @@ class m170608_095851_create_article_category_table extends Migration
             'intro'=>$this->text()->comment('简介'),
              'sort'=>$this->integer(11)->comment('排序'),
             'status'=>$this->integer(2)->comment('状态'),
-            'is_help'=>$this->integer(1)->comment('类型')
-
+            'is_help'=>$this->integer(1)->comment('类型'),
         ]);
+//        CONSTRAINT `teacher_user` FOREIGN KEY (`user_id`) REFERENCES `tbl_user` (`id`) ON DELETE cascade)
+//        $this->addForeignKey('article','article','id',);
+
     }
 
     /**
